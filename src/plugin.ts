@@ -8,6 +8,8 @@ const log = loglevel.getLogger(PLUGIN_NAME) // get a logger instance based on th
 log.setLevel((process.env.DEBUG_LEVEL || 'warn') as log.LogLevelDesc)
 
 const parse = require('csv-parse')
+//in theory a better line for this would actually be
+//import {Parser} from 'csv-parse' // WHY YOU NO WORK
 
 /** wrap incoming recordObject in a Singer RECORD Message object*/
 function createRecord(recordObject:Object, streamName: string) : any {
@@ -76,28 +78,28 @@ export function tapCsv(configObj: any) {
     else if (file.isBuffer()) {
 
 
-      parse(file.contents as Buffer, configObj, function(err:any, linesArray : []){
+      parse((file.contents as Buffer), configObj, function (err: any, linesArray: []) {
         // this callback function runs when the parser finishes its work, returning an array parsed lines 
-        let tempLine: any
+        let tempLine: any;
         let resultArray = [];
         // we'll call handleLine on each line
         for (let dataIdx in linesArray) {
           try {
             let lineObj = linesArray[dataIdx]
             tempLine = handleLine(lineObj, streamName)
-            if (tempLine){
+            if (tempLine) {
               let tempStr = JSON.stringify(tempLine)
               log.debug(tempStr)
-              resultArray.push(tempStr);
+              resultArray.push(tempStr)
             }
-          } catch (err) {
-            returnErr = new PluginError(PLUGIN_NAME, err);
+          }
+          catch (err) {
+            returnErr = new PluginError(PLUGIN_NAME, err)
           }
         }
-        let data:string = resultArray.join('\n')
-
+        let data: string = resultArray.join('\n')
         file.contents = Buffer.from(data)
-        
+
         // we are done with file processing. Pass the processed file along
         log.debug('calling callback')    
         cb(returnErr, file);    
@@ -125,9 +127,9 @@ export function tapCsv(configObj: any) {
         })
         .pipe(newTransformer(streamName))
 
-      // after our stream is set up (not necesarily finished) we call the callback
-      log.debug('calling callback')    
-      cb(returnErr, file);
+        // after our stream is set up (not necesarily finished) we call the callback
+        log.debug('calling callback')    
+        cb(returnErr, file);
     }
 
   })

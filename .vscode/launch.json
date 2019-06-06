@@ -70,5 +70,19 @@
             "protocol": "inspector",
             "internalConsoleOptions": "openOnSessionStart",
         },
+        {
+            "name": "spreadsheet",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/src/plugin-spreadsheet.ts",
+            "stopOnEntry": false,
+            "args": ["--gulpfile", "./debug"],
+            "cwd": "${workspaceRoot}",
+            "console": "internalConsole",
+            "outFiles": [
+                "${workspaceFolder/**/*.js"
+            ],
+            "env": {"DEBUG_LEVEL":"info"}
+        },
     ]
 }
