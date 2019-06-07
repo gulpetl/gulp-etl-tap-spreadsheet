@@ -9,8 +9,6 @@ function createRecord(recordObject:Object, streamName: string) : any {
     return {type:"RECORD", stream:streamName, record:recordObject}
 }
 
-//still gotta get html and dbf
-
 function convertToJson(file:any){
     let workbook = XLSX.read(file.contents, {type:"buffer"}) 
     return XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]])
@@ -50,7 +48,6 @@ export function tapSpreadSheet(configObj:any){
             }
             let data: string = resultArray.join('\n')
             file.contents = Buffer.from(data);
-            // file.rename({extname:".ndjson"}) 
             log.debug('calling callback');
             callback(returnErr, file)
         }
