@@ -1,5 +1,5 @@
 let gulp = require('gulp')
-import { tapSpreadSheet } from '../src/plugin-tap-xlsx'
+import { tapSpreadSheet } from '../src/plugin'
 import * as rename from 'gulp-rename'
 import Vinyl = require('vinyl') 
 const pkginfo = require('pkginfo')(module); // project package.json info into module.exports
