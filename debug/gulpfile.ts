@@ -8,9 +8,6 @@ const errorHandler = require('gulp-error-handle'); // handle all errors in one h
 import * as loglevel from 'loglevel'
 const log = loglevel.getLogger('gulpfile')
 log.setLevel((process.env.DEBUG_LEVEL || 'warn') as log.LogLevelDesc)
-// if needed, you can control the plugin's logging level separately from 'gulpfile' logging above
-// const pluginLog = loglevel.getLogger(PLUGIN_NAME)
-// pluginLog.setLevel('debug')
 
 function runTapSpreadSheet(callback: any) {
   log.info('gulp task starting for ' + PLUGIN_NAME)

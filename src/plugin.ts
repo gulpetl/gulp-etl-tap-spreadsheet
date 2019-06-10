@@ -4,6 +4,7 @@ import XLSX = require('xlsx')
 const PLUGIN_NAME= 'gulp-etl-tap-spreadsheet'
 import * as loglevel from 'loglevel'
 const log = loglevel.getLogger(PLUGIN_NAME)
+log.setLevel((process.env.DEBUG_LEVEL || 'warn') as log.LogLevelDesc)
 
 function createRecord(recordObject:Object, streamName: string) : any {
     return {type:"RECORD", stream:streamName, record:recordObject}
