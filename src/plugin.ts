@@ -1,7 +1,8 @@
 const through2 = require('through2');
 import PluginError= require('plugin-error')
 import XLSX = require('xlsx')
-const PLUGIN_NAME= 'gulp-etl-tap-spreadsheet'
+const pkginfo = require('pkginfo')(module); // project package.json info into module.exports
+const PLUGIN_NAME = module.exports.name;
 import * as loglevel from 'loglevel'
 const log = loglevel.getLogger(PLUGIN_NAME)
 log.setLevel((process.env.DEBUG_LEVEL || 'warn') as log.LogLevelDesc)
@@ -33,7 +34,6 @@ function createLines(linesArr: any, streamName: any){
 
 export function tapSpreadSheet(configObj:any){
     if (!configObj) configObj = {}
-    configObj.type = "buffer"
 
     const strm = through2.obj( function (file: any, enc:any, callback:any ){
         let returnErr: any = null
