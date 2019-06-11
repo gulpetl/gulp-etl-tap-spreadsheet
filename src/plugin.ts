@@ -10,9 +10,25 @@ function createRecord(recordObject:Object, streamName: string) : any {
     return {type:"RECORD", stream:streamName, record:recordObject}
 }
 
-function convertToJson(file:any){
-    let workbook = XLSX.read(file.contents, {type:"buffer"}) 
-    return XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]])
+function createLines(linesArr: any, streamName: any){
+    let returnErr: any = null
+    let tempArr = []
+    for (let lineIdx in linesArr) {
+        try{
+            let lineObj:any = linesArr[lineIdx]
+            let tempLine: any
+            tempLine = createRecord(lineObj, streamName)
+            if (tempLine) {
+                let tempStr = JSON.stringify(tempLine)
+                log.debug(tempStr)
+                tempArr.push(tempStr)
+            }
+        }
+        catch (err){
+            returnErr = new PluginError(PLUGIN_NAME, err)
+        }
+    }
+    return tempArr
 }
 
 export function tapSpreadSheet(configObj:any){
@@ -29,23 +45,14 @@ export function tapSpreadSheet(configObj:any){
             throw new PluginError(PLUGIN_NAME, 'Trying to stream from unstreamable file')
         }
         else if ( file.isBuffer() ){
-            let sheetArr = convertToJson(file)
-            
-            let tempLine: any;
-            let resultArray= [];
-            for (let dataIdx in sheetArr) {
-                try{
-                    let lineObj:any = sheetArr[dataIdx]
-                    tempLine = createRecord(lineObj, 'tap-spreadsheet')
-                    if (tempLine) {
-                        let tempStr = JSON.stringify(tempLine)
-                        log.debug(tempStr)
-                        resultArray.push(tempStr)
-                    }
-                }
-                catch (err){
-                    returnErr = new PluginError(PLUGIN_NAME, err)
-                }
+            let workbook = XLSX.read(file.contents, {type:"buffer"})
+            let linesArr: any = []
+            let sheetLines = []
+            var resultArray: any= [];
+            for( let sheetIdx in workbook.SheetNames){
+                linesArr = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[sheetIdx]])
+                sheetLines = createLines(linesArr, workbook.SheetNames[sheetIdx])
+                resultArray = resultArray.concat(sheetLines)
             }
             let data: string = resultArray.join('\n')
             file.contents = Buffer.from(data);
