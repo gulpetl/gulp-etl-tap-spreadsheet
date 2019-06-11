@@ -33,7 +33,7 @@ function createLines(linesArr: any, streamName: any){
 
 export function tapSpreadSheet(configObj:any){
     if (!configObj) configObj = {}
-    if (!configObj.columns) configObj.columns = true
+    configObj.type = "buffer"
 
     const strm = through2.obj( function (file: any, enc:any, callback:any ){
         let returnErr: any = null
@@ -42,10 +42,10 @@ export function tapSpreadSheet(configObj:any){
             return callback(returnErr, file)
         }
         else if ( file.isStream() ){
-            throw new PluginError(PLUGIN_NAME, 'Trying to stream from unstreamable file')
+            throw new PluginError(PLUGIN_NAME, 'Does not support streaming')
         }
         else if ( file.isBuffer() ){
-            let workbook = XLSX.read(file.contents, {type:"buffer"})
+            let workbook = XLSX.read(file.contents, configObj)
             let linesArr: any = []
             let sheetLines = []
             var resultArray: any= [];

@@ -19,7 +19,7 @@ function runTapSpreadSheet(callback: any) {
     .on('data', function (file:Vinyl) {
       log.info('Starting processing on ' + file.basename)
     })    
-    .pipe(tapSpreadSheet({columns:true/*, info:true */}))
+    .pipe(tapSpreadSheet({type:"buffer"}))
     .pipe(rename({ extname: ".ndjson" }))
     .pipe(gulp.dest('../testdata/processed'))
     .on('data', function (file:Vinyl) {

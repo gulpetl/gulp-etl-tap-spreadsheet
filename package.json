@@ -17,6 +17,12 @@
   "keywords": [
     "gulpplugin",
     "csv",
+    "spreadsheets",
+    "excel",
+    "xls",
+    "xlsx",
+    "ods",
+    "dbf",
     "gulp-etl"
   ],
   "homepage": "https://gulpetl.com",
