@@ -1,0 +1,2 @@
+{"type":"RECORD","stream":"Sheet1","record":{"Firstname":"Jill","Lastname":"Smith","Age":50}}
+{"type":"RECORD","stream":"Sheet1","record":{"Firstname":"Eve","Lastname":"Jackson","Age":94}}

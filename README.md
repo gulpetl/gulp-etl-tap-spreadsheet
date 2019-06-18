@@ -1,6 +1,6 @@
 # gulp-etl-tap-spreadsheet #
 
-This plugin converts spreadsheet files (currently tested on xlsx, xls, csv, dbf, and ods) to **gulp-etl** **Message Stream** files.
+This plugin converts spreadsheet files (currently tested on xlsx, xls, csv, dbf, ods, txt and html) to **gulp-etl** **Message Stream** files.
 
 This is a **[gulp-etl](https://gulpetl.com/)** plugin, and as such it is a [gulp](https://gulpjs.com/) plugin. **gulp-etl** plugins work with [ndjson](http://ndjson.org/) data streams/files which we call **Message Streams** and which are compliant with the [Singer specification](https://github.com/singer-io/getting-started/blob/master/docs/SPEC.md#output). In the **gulp-etl** ecosystem, **taps** tap into an outside format or system and convert their contents/output to a Message Stream, and **targets** convert/output Message Streams to an outside format or system. In this way, these modules can be stacked to convert from one format or system to another, either directly or with tranformations or other parsing in between. Message Streams look like this:
 
@@ -16,6 +16,8 @@ This is a **[gulp-etl](https://gulpetl.com/)** plugin, and as such it is a [gulp
 ### Usage
 **gulp-etl** plugins accept a configObj as the first parameter; the configObj will contain any info the plugin needs. 
 For this plugin the configObj is the "Parsing Options" object for [xlsx](https://docs.sheetjs.com/) described [here](https://docs.sheetjs.com/#parsing-options). If a file has multiple sheets, they will be exported to a single file with the stream name indicating the sheet name.
+
+If HTML and TXT files are exported from excel they will import properly. Otherwise, HTML tables must be a simple format of having a header for every column, containing the columns name.
 
 ##### Sample gulpfile.js
 ```
