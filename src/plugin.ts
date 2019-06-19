@@ -56,6 +56,7 @@ export function tapSpreadSheet(configObj:any){
             }
             let data: string = resultArray.join('\n')
             file.contents = Buffer.from(data);
+            file.extname = ".ndjson"
             log.debug('calling callback');
             callback(returnErr, file)
         }
