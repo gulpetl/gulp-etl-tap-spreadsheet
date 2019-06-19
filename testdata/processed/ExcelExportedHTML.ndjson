@@ -1,0 +1,4 @@
+{"type":"RECORD","stream":"Sheet1","record":{"zcarModel":"Jeep","price":25000,"color":"purple"}}
+{"type":"RECORD","stream":"Sheet1","record":{"zcarModel":"Voltswagon","price":16000,"color":"black"}}
+{"type":"RECORD","stream":"Sheet1","record":{"zcarModel":"Nissan","price":13000,"color":"yellow"}}
+{"type":"RECORD","stream":"Sheet1","record":{"zcarModel":"Honda","price":20000,"color":"green"}}

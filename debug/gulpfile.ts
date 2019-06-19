@@ -20,7 +20,6 @@ function runTapSpreadSheet(callback: any) {
       log.info('Starting processing on ' + file.basename)
     })    
     .pipe(tapSpreadSheet({ type: "buffer" }))
-    .pipe(rename({ extname: ".ndjson" }))
     .pipe(gulp.dest('../testdata/processed'))
     .on('data', function (file:Vinyl) {
       log.info('Finished processing on ' + file.basename)
