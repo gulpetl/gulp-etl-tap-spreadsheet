@@ -1,6 +1,6 @@
 {
   "name": "gulp-etl-tap-spreadsheet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": "https://github.com/gulpetl/gulp-etl-tap-spreadsheet.git",
   "description": "Convert spreadsheet files to JSON compatible with gulp-etl",
   "main": "dist/js/plugin.js",
@@ -13,6 +13,7 @@
     "test": "jest"
   },
   "author": "peterl@sbcotton.com",
+  "contributors": ["chloe.osgood@ttu.edu"],
   "license": "MIT",
   "keywords": [
     "gulpplugin",
