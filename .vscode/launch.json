@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "GulpTester",
+            "name": "Tap Spreadsheet",
             "type": "node",
             "request": "launch",
             "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
@@ -18,8 +18,8 @@
             "console": "internalConsole",
             "env": {"DEBUG_LEVEL":"info"}
         },
-        {        
-            "name": "GulpTester Debug",
+        {
+            "name": "Tap Spreadsheet debug",
             "type": "node",
             "request": "launch",
             "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
@@ -33,14 +33,17 @@
             "env": {"DEBUG_LEVEL":"debug"}
         },
         {
-            "name": "aws-doParse: debug TS w/o transpile using ts-node",
+            "name": "Tap SpreadSheet Javascript",
             "type": "node",
             "request": "launch",
-            "args": ["src/aws/dev-handler.ts"],
-            "runtimeArgs": ["-r", "ts-node/register"],
+            "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
+            "stopOnEntry": false,
+            "args": ["--gulpfile", "./gulpfile.js","default"],
             "cwd": "${workspaceRoot}",
-            "protocol": "inspector",
-            "internalConsoleOptions": "openOnSessionStart",
-        },
+            "runtimeArgs": [
+                "--nolazy", "-r", "ts-node/register"
+            ],
+            "console": "internalConsole"
+        }
     ]
 }

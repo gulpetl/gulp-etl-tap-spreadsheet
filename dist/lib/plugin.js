@@ -3,12 +3,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const through2 = require('through2');
 const PluginError = require("plugin-error");
 const XLSX = require("xlsx");
-const PLUGIN_NAME = 'gulp-etl-tap-spreadsheet';
+var replaceExt = require('replace-ext');
+const pkginfo = require('pkginfo')(module); // project package.json info into module.exports
+const PLUGIN_NAME = module.exports.name;
 const loglevel = require("loglevel");
 const log = loglevel.getLogger(PLUGIN_NAME);
 log.setLevel((process.env.DEBUG_LEVEL || 'warn'));
 function createRecord(recordObject, streamName) {
-    return { type: "RECORD", stream: streamName, record: recordObject };
+    return {
+        type: "RECORD",
+        stream: streamName,
+        record: recordObject
+    };
 }
 function createLines(linesArr, streamName) {
     let returnErr = null;
@@ -33,8 +39,6 @@ function createLines(linesArr, streamName) {
 function tapSpreadSheet(configObj) {
     if (!configObj)
         configObj = {};
-    if (!configObj.columns)
-        configObj.columns = true;
     const strm = through2.obj(function (file, enc, callback) {
         let returnErr = null;
         if (file.isNull()) {
@@ -42,10 +46,10 @@ function tapSpreadSheet(configObj) {
             return callback(returnErr, file);
         }
         else if (file.isStream()) {
-            throw new PluginError(PLUGIN_NAME, 'Trying to stream from unstreamable file');
+            throw new PluginError(PLUGIN_NAME, 'Does not support streaming');
         }
         else if (file.isBuffer()) {
-            let workbook = XLSX.read(file.contents, { type: "buffer" });
+            let workbook = XLSX.read(file.contents, configObj);
             let linesArr = [];
             let sheetLines = [];
             var resultArray = [];
@@ -56,6 +60,7 @@ function tapSpreadSheet(configObj) {
             }
             let data = resultArray.join('\n');
             file.contents = Buffer.from(data);
+            file.path = replaceExt(file.path, '.ndjson');
             log.debug('calling callback');
             callback(returnErr, file);
         }
