@@ -2,6 +2,10 @@
 
 This plugin converts spreadsheet files (currently tested on xlsx, xls, csv, dbf, ods, txt and html) to **gulp-etl** **Message Stream** files. This plugin is a wrapper for [xlsx](https://docs.sheetjs.com/).
 
+This diagram shows the flow of this program. It takes a spreadsheet, converts it to a JSON, and uses that to create the message streams saved as a ndjson file, described as down below
+
+![](./gulpFlow.png)
+
 This is a **[gulp-etl](https://gulpetl.com/)** plugin, and as such it is a [gulp](https://gulpjs.com/) plugin. **gulp-etl** plugins work with [ndjson](http://ndjson.org/) data streams/files which we call **Message Streams** and which are compliant with the [Singer specification](https://github.com/singer-io/getting-started/blob/master/docs/SPEC.md#output). In the **gulp-etl** ecosystem, **taps** tap into an outside format or system and convert their contents/output to a Message Stream, and **targets** convert/output Message Streams to an outside format or system. In this way, these modules can be stacked to convert from one format or system to another, either directly or with tranformations or other parsing in between. Message Streams look like this:
 
 ```
