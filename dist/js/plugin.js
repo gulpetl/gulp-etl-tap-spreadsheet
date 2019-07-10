@@ -1,5 +1,7 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 const through2 = require('through2');
 const PluginError = require("plugin-error");
 const XLSX = require("xlsx");
@@ -9,6 +11,7 @@ const PLUGIN_NAME = module.exports.name;
 const loglevel = require("loglevel");
 const log = loglevel.getLogger(PLUGIN_NAME);
 log.setLevel((process.env.DEBUG_LEVEL || 'warn'));
+
 function createRecord(recordObject, streamName) {
     return {
         type: "RECORD",
@@ -16,6 +19,7 @@ function createRecord(recordObject, streamName) {
         record: recordObject
     };
 }
+
 function createLines(linesArr, streamName) {
     let returnErr = null;
     let tempArr = [];
@@ -29,13 +33,13 @@ function createLines(linesArr, streamName) {
                 log.debug(tempStr);
                 tempArr.push(tempStr);
             }
-        }
-        catch (err) {
+        } catch (err) {
             returnErr = new PluginError(PLUGIN_NAME, err);
         }
     }
     return tempArr;
 }
+
 function tapSpreadSheet(configObj) {
     if (!configObj)
         configObj = {};
@@ -44,11 +48,9 @@ function tapSpreadSheet(configObj) {
         if (file.isNull()) {
             //return empty file
             return callback(returnErr, file);
-        }
-        else if (file.isStream()) {
+        } else if (file.isStream()) {
             throw new PluginError(PLUGIN_NAME, 'Does not support streaming');
-        }
-        else if (file.isBuffer()) {
+        } else if (file.isBuffer()) {
             let workbook = XLSX.read(file.contents, configObj);
             let linesArr = [];
             let sheetLines = [];

@@ -1,8 +1,8 @@
 {
-  "name": "gulp-etl-tap-spreadsheets",
-  "version": "1.0.1",
+  "name": "gulp-etl-tap-spreadsheet",
+  "version": "1.0.2",
   "repository": "https://github.com/gulpetl/gulp-etl-tap-spreadsheet.git",
-  "description": "Convert spreadsheet files to JSON compatible with gulp-etl",
+  "description": "Parse spreadsheets (XLS, XLSX, ODS, DBF, CSV, etc) into gulp-etl's Message Stream JSON format",
   "main": "dist/js/plugin.js",
   "typings": "dist/types/plugin.d.ts",
   "files": [
@@ -14,12 +14,14 @@
     "defaultTask": "gulp --gulpfile ./debug/gulpfile.ts default"
   },
   "author": "peterl@sbcotton.com",
+  "contributors": ["chloe.osgood@ttu.edu"],
   "license": "MIT",
   "keywords": [
     "gulpplugin",
     "csv",
-    "spreadsheets",
+    "spreadsheet",
     "excel",
+    "office",
     "xls",
     "xlsx",
     "ods",
