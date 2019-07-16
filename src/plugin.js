@@ -38,7 +38,7 @@ function createLines(linesArr, streamName) {
     return tempArr;
 }
 
-function tapSpreadSheet(configObj) {
+function tapSpreadSheet(configObj, sheetOpts) {
     if (!configObj)
         configObj = {};
     var strm = through2.obj(function (file, enc, callback) {
@@ -54,7 +54,7 @@ function tapSpreadSheet(configObj) {
             var sheetLines = [];
             var resultArray = [];
             for (var sheetIdx in workbook.SheetNames) {
-                linesArr = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[sheetIdx]]);
+                linesArr = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[sheetIdx]], sheetOpts);
                 sheetLines = createLines(linesArr, workbook.SheetNames[sheetIdx]);
                 resultArray = resultArray.concat(sheetLines);
             }
