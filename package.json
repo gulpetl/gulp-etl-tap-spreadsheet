@@ -36,7 +36,7 @@
     "dependencies": {
         "@types/through2": "^2.0.34",
         "csv-parse": "^4.4.1",
-        "embedme": "^1.11.0",
+        "embedme": "^1.15.0",
         "from2": "^2.3.0",
         "gulp-error-handle": "^1.0.1",
         "loglevel": "^1.6.1",

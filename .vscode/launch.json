@@ -44,6 +44,60 @@
                 "--nolazy", "-r", "ts-node/register"
             ],
             "console": "internalConsole"
+        }{
+            "name": "Manual Headers",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
+            "stopOnEntry": false,
+            "args": ["--gulpfile", "./debug/gulpfile.ts", "headers"],
+            "cwd": "${workspaceRoot}",
+            "runtimeArgs": [
+                "--nolazy", "-r", "ts-node/register"
+            ],
+            "console": "internalConsole",
+            "env": {"DEBUG_LEVEL":"info"}
+        },
+        {
+            "name": "Manual Headers debug",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
+            "stopOnEntry": false,
+            "args": ["--gulpfile", "./debug/gulpfile.ts", "headers"],
+            "cwd": "${workspaceRoot}",
+            "runtimeArgs": [
+                "--nolazy", "-r", "ts-node/register"
+            ],
+            "console": "internalConsole",
+            "env": {"DEBUG_LEVEL":"debug"}
+        },{
+            "name": "Tap into arrays",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
+            "stopOnEntry": false,
+            "args": ["--gulpfile", "./debug/gulpfile.ts", "arrays"],
+            "cwd": "${workspaceRoot}",
+            "runtimeArgs": [
+                "--nolazy", "-r", "ts-node/register"
+            ],
+            "console": "internalConsole",
+            "env": {"DEBUG_LEVEL":"info"}
+        },
+        {
+            "name": "Tap into arrys debug",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
+            "stopOnEntry": false,
+            "args": ["--gulpfile", "./debug/gulpfile.ts", "arrays"],
+            "cwd": "${workspaceRoot}",
+            "runtimeArgs": [
+                "--nolazy", "-r", "ts-node/register"
+            ],
+            "console": "internalConsole",
+            "env": {"DEBUG_LEVEL":"debug"}
         }
     ]
 }

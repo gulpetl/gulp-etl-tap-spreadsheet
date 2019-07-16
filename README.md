@@ -18,27 +18,28 @@ This is a **[gulp-etl](https://gulpetl.com/)** plugin, and as such it is a [gulp
 ```
 
 ### Usage
-**gulp-etl** plugins accept a configObj as the first parameter; the configObj will contain any info the plugin needs.
-For this plugin the configObj is the "Parsing Options" object for [xlsx](https://docs.sheetjs.com/) described [here](https://docs.sheetjs.com/#parsing-options). If a file has multiple sheets, they will be exported to a single file with the stream name indicating the sheet name. The exported file will be a ndjson file.
+**gulp-etl** plugins accept a configObj as the first parameter, and sheetOpts is an optional second parameter.
+The configObj is the "Parsing Options" object for [xlsx](https://docs.sheetjs.com/) described [here](https://docs.sheetjs.com/#parsing-options). The sheetOpts are the options for generating a JSON object with [xlsx](https://docs.sheetjs.com/) described [here](https://docs.sheetjs.com/#json). If a file has multiple sheets, they will be exported to a single file with the stream name indicating the sheet name. The exported file will be a ndjson file.
 
 If HTML and TXT files are exported from excel they will import properly. Otherwise, HTML tables must be a simple format of having a header for every column, containing the columns name.
 
 ##### Sample gulpfile.js
 
+<!-- embedme gulpfile.js -->
+
 ```js
-// gulpfile.js
-var gulp = require('gulp');
-var tapSpreadSheet = require('./src/plugin').tapSpreadSheet;
+var gulp = require("gulp");
+var tapSpreadSheet = require("./src/plugin").tapSpreadSheet;
 
 function runTapSpreadSheet(callback) {
-    return gulp.src(['./testdata/*', '!./testdata/ignore', '!./testdata/processed'])
-        .pipe(tapSpreadSheet({
-            type: "buffer"
-        }))
-        .pipe(gulp.dest('./testdata/processed'))
+    return gulp
+        .src(["./testdata/*", "!./testdata/ignore", "!./testdata/processed"])
+        .pipe(tapSpreadSheet({ type: "buffer" }, { raw: false }))
+        .pipe(gulp.dest("./testdata/processed"));
 }
 
 exports["default"] = gulp.series(runTapSpreadSheet);
+
 ```
 
 ### Quick Start for Coding on This Plugin

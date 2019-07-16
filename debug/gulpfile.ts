@@ -10,17 +10,80 @@ const PLUGIN_NAME = module.exports.name;
 
 function runTapSpreadSheet(callback: any) {
     log.info("gulp task starting for " + PLUGIN_NAME);
-    return gulp.src(["../testdata/*", "!../testdata/ignore", "!../testdata/processed"])
-        .pipe(errorHandler(function(err: any) {
+    return gulp
+        .src(["../testdata/*", "!../testdata/ignore", "!../testdata/processed"])
+        .pipe(
+            errorHandler(function(err: any) {
                 log.error("Error: " + err);
                 callback(err);
-            }))
+            })
+        )
         .on("data", function(file: Vinyl) {
             log.info("Starting processing on " + file.basename);
         })
-        .pipe(tapSpreadSheet({
-            type: "buffer"
-        }))
+        .pipe(
+            tapSpreadSheet({
+                type: "buffer"
+            })
+        )
+        .pipe(gulp.dest("../testdata/processed"))
+        .on("data", function(file: Vinyl) {
+            log.info("Finished processing on " + file.basename);
+        })
+        .on("end", function() {
+            log.info("gulp task complete");
+            callback();
+        });
+}
+
+function tapHeaders(callback: any) {
+    log.info("gulp task starting for " + PLUGIN_NAME);
+    return gulp
+        .src(["../testdata/*", "!../testdata/ignore", "!../testdata/processed"])
+        .pipe(
+            errorHandler(function(err: any) {
+                log.error("Error: " + err);
+                callback(err);
+            })
+        )
+        .on("data", function(file: Vinyl) {
+            log.info("Starting processing on " + file.basename);
+        })
+        .pipe(
+            tapSpreadSheet(
+                { type: "buffer" },
+                { header: "A" } //The headers become the alphabet
+            )
+        )
+        .pipe(gulp.dest("../testdata/processed"))
+        .on("data", function(file: Vinyl) {
+            log.info("Finished processing on " + file.basename);
+        })
+        .on("end", function() {
+            log.info("gulp task complete");
+            callback();
+        });
+}
+
+function tapRowArrays(callback: any) {
+    log.info("gulp task starting for " + PLUGIN_NAME);
+    return gulp
+        .src(["../testdata/*", "!../testdata/ignore", "!../testdata/processed"])
+        .pipe(
+            errorHandler(function(err: any) {
+                log.error("Error: " + err);
+                callback(err);
+            })
+        )
+        .on("data", function(file: Vinyl) {
+            log.info("Starting processing on " + file.basename);
+        })
+        .pipe(
+            tapSpreadSheet(
+                { type: "buffer" },
+                { header: 1 } //This changes it to where each line is an array
+            )
+        )
         .pipe(gulp.dest("../testdata/processed"))
         .on("data", function(file: Vinyl) {
             log.info("Finished processing on " + file.basename);
@@ -32,3 +95,5 @@ function runTapSpreadSheet(callback: any) {
 }
 
 exports.default = gulp.series(runTapSpreadSheet);
+exports.headers = gulp.series(tapHeaders);
+exports.arrays = gulp.series(tapRowArrays);
